@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h2>Add User</h2>
+
+<form id="userForm">
+    <label for="userName">Name:</label>
+    <input type="text" id="userName" name="userName"><br><br>
+    <label for="userEmail">Email:</label>
+    <input type="text" id="userEmail" name="userEmail"><br><br>
+    <input type="button" value="Add User" onclick="addUser()">
+</form>
+
+<script>
+function addUser() {
+    var userName = document.getElementById("userName").value;
+    var userEmail = document.getElementById("userEmail").value;
+    
+    // Send user data to server using AJAX
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "http://localhost:8080/addUser", true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            alert("User added successfully!");
+        }
+    };
+    var userData = {
+        name: userName,
+        email: userEmail
+    };
+    xhr.send(JSON.stringify(userData));
+}
+</script>
+
+</body>
+</html>
